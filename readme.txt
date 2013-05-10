@@ -13,7 +13,33 @@ This lightweight plugin provides a widget and shortcode to display related posts
 
 Choose from single or multiple taxonomies and search for related posts in multiple post types. Posts that have the most terms in common will display at the top (also ordered by date). It's easy to override the look of the widget or shortcode with a filter or by including your own templates in your theme. It's also possible to get the related posts by using a function in your theme template files.
 
-For more information on how to use the plugin see the readme.html file in the plugin's /docs directory.
+For more information on how to use the plugin see the readme.html file that comes with the plugin (inside the 'docs' directory).
+
+Default usage of the shortcode is:
+<pre><code>[related_posts_by_tax]</code></pre>
+
+Attributes for the shortcode are:
+
+* post_id
+* taxonomies
+* post_types
+* posts_per_page
+* order
+* orderby
+* title
+* before_title
+* after_title
+* exclude_terms
+* exclude_posts
+* format
+* limit_posts
+* limit_year
+* limit_month
+
+Example to show 10 related posts instead of the default 5.
+<pre><code>[related_posts_by_tax posts_per_page="10"]</code></pre>
+
+Read the documentation that comes with the plugin for more information on these attributes and what they do. 
 
 == Installation ==
 * Unzip the <code>related-posts-by-taxonomy.zip</code> folder.
@@ -22,6 +48,20 @@ For more information on how to use the plugin see the readme.html file in the pl
 * That's it, now you are ready to use the widget and shortcode
 
 == Frequently Asked Questions ==
+
+For more information on how to use the plugin see the readme.html file that comes with the plugin (inside the 'docs' directory).
+
+= Can I exclude posts and/or terms with the widget or shortcode =
+Yes. Read the "Filters" or "Shortcode" section in the documentation that comes with the plugin.
+
+= The widget only lets you choose "all taxonomies" or a single taxonomy. Can I make it use only the taxonomies I want? =
+
+Yes. Read the "Filters" section in the documentation that comes with the plugin.
+
+= How can I automatically add related posts after the post content? =
+
+Read the "Adding Related Posts After the Post Content" section in the documentation that comes with the plugin.
+
 
 == Screenshots ==
 
