@@ -13,7 +13,7 @@
 	<?php foreach ( $related_posts as $post ) :
 		setup_postdata( $post ); ?>
 
-		<h2><a href="<?php the_permalink() ?>" title="<?php echo esc_attr( get_the_title() ? get_the_title() : get_the_ID() ); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h2>
+		<a href="<?php the_permalink() ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a>
 		<?php the_excerpt(); ?>
 
 	<?php endforeach; ?>
