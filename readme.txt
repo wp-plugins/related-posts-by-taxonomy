@@ -1,9 +1,9 @@
-=== Plugin Name ===
+=== Related Posts by Taxonomy ===
 Contributors: keesiemeijer
 Tags: related,related posts,taxonomies,taxonomy,post types,terms,widget,shortcode
 Requires at least: 3.4
 Tested up to: 3.6
-Stable tag: 0.1
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ This lightweight plugin provides a widget and shortcode to display related posts
 
 Choose from single or multiple taxonomies and search for related posts in multiple post types. Posts that have the most terms in common will display at the top (also ordered by date). It's easy to override the look of the widget or shortcode with a filter or by including your own templates in your theme. It's also possible to get the related posts by using a function in your theme template files.
 
-For more information on how to use the plugin see the readme.html file that comes with the plugin (inside the 'docs' directory).
+For more information on how to use the plugin see [these instructions](http://keesiemeijer.wordpress.com/) or read the readme.html file that comes with the plugin (inside the 'docs' directory).
 
 Default usage of the shortcode is:
 <pre><code>[related_posts_by_tax]</code></pre>
@@ -39,7 +39,7 @@ Attributes for the shortcode are:
 Example to show 10 related posts instead of the default 5.
 <pre><code>[related_posts_by_tax posts_per_page="10"]</code></pre>
 
-Read the documentation that comes with the plugin for more information on these attributes and what they do. 
+Read the documentation for more information on these attributes and what they do. 
 
 == Installation ==
 * Unzip the <code>related-posts-by-taxonomy.zip</code> folder.
@@ -49,7 +49,7 @@ Read the documentation that comes with the plugin for more information on these 
 
 == Frequently Asked Questions ==
 
-For more information on how to use the plugin see the readme.html file that comes with the plugin (inside the 'docs' directory).
+For more information on how to use the plugin see [these instructions](http://keesiemeijer.wordpress.com/) or read the readme.html file that comes with the plugin (inside the 'docs' directory).
 
 = Can I exclude posts and/or terms with the widget or shortcode =
 Yes. Read the "Filters" or "Shortcode" section in the documentation that comes with the plugin.
