@@ -13,7 +13,7 @@ This lightweight plugin provides a widget and shortcode to display related posts
 
 Choose from single or multiple taxonomies and search for related posts in multiple post types. Posts that have the most terms in common will display at the top (also ordered by date). It's easy to override the look of the widget or shortcode with a filter or by including your own templates in your theme. It's also possible to get the related posts by using a function in your theme template files.
 
-For more information on how to use the plugin see [these instructions](http://keesiemeijer.wordpress.com/) or read the readme.html file that comes with the plugin (inside the 'docs' directory).
+For more information on how to use the plugin see [these instructions](http://keesiemeijer.wordpress.com/2013/05/11/related-posts-by-taxonomy-plugin/) or read the readme.html file that comes with the plugin (inside the 'docs' directory).
 
 Default usage of the shortcode is:
 <pre><code>[related_posts_by_tax]</code></pre>
@@ -49,7 +49,7 @@ Read the documentation for more information on these attributes and what they do
 
 == Frequently Asked Questions ==
 
-For more information on how to use the plugin see [these instructions](http://keesiemeijer.wordpress.com/) or read the readme.html file that comes with the plugin (inside the 'docs' directory).
+For more information on how to use the plugin see [these instructions](http://keesiemeijer.wordpress.com/2013/05/11/related-posts-by-taxonomy-plugin/) or read the readme.html file that comes with the plugin (inside the 'docs' directory).
 
 = Can I exclude posts and/or terms with the widget or shortcode =
 Yes. Read the "Filters" or "Shortcode" section in the documentation that comes with the plugin.
