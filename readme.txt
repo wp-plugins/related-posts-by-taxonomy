@@ -1,6 +1,6 @@
 === Related Posts by Taxonomy ===
 Contributors: keesiemeijer
-Tags: related,related posts,widget,shortcode,taxonomy,taxonomies,post type,post types,term,terms,category,categories,tag,tags,post_tag,posts,similar,similar posts
+Tags: related,related posts,widget,shortcode,taxonomy,taxonomies,post type,post types,term,terms,category,categories,tag,tags,post_tag,posts,similar,posts,similar,thumbnail, thumbnails, post thumbnail,featured image
 Requires at least: 3.4
 Tested up to: 3.6
 Stable tag: 0.2
@@ -15,6 +15,7 @@ Choose from single or multiple taxonomies and search for related posts in single
 
 Plugin features:
 
+* Widget and shortcode
 * Display related posts as links, full posts, excerpts or post thumbnails
 * exclude terms from taxonomies
 * exclude posts from the related posts
