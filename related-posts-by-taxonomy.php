@@ -34,13 +34,21 @@ if ( !function_exists( 'related_posts_by_taxonomy_init' ) ) {
 
 		load_plugin_textdomain( 'related-posts-by-taxonomy', '', dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 
+		// functions to retrieve related posts from the database
 		require_once plugin_dir_path( __FILE__ ) . 'functions.php';
+
+		// functions for display of related post thumbnail gallery
+		require_once plugin_dir_path( __FILE__ ) . 'functions-thumbnail.php';
+
+		// loads the different templates uses for the widget and shortcode
 		require_once plugin_dir_path( __FILE__ ) . 'template-loader.php';
+
 		require_once plugin_dir_path( __FILE__ ) . 'widget.php';
 		require_once plugin_dir_path( __FILE__ ) . 'shortcode.php';
 
 		add_shortcode( 'related_posts_by_tax', 'km_rpbt_related_posts_by_taxonomy_shortcode' );
 	}
+
 
 	/* initialize plugin */
 	related_posts_by_taxonomy_init();
