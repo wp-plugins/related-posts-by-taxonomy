@@ -11,7 +11,18 @@
  * @return string HTML content to display gallery.
  */
 function km_rpbt_related_posts_by_taxonomy_gallery( $args, $related_posts = array() ) {
-	$post = get_post();
+
+	$compatible = true;
+
+	global $wp_version;
+	if ( version_compare( $wp_version, "3.5", "<" ) )
+		$compatible = false;
+
+	// back compat
+	if ( $compatible )
+		$post = get_post();
+	else
+		global $post;
 
 	static $instance = 0;
 	$instance++;
@@ -54,13 +65,17 @@ function km_rpbt_related_posts_by_taxonomy_gallery( $args, $related_posts = arra
 	$itemtag = tag_escape( $itemtag );
 	$captiontag = tag_escape( $captiontag );
 	$icontag = tag_escape( $icontag );
-	$valid_tags = wp_kses_allowed_html( 'post' );
-	if ( ! isset( $valid_tags[ $itemtag ] ) )
-		$itemtag = 'dl';
-	if ( ! isset( $valid_tags[ $captiontag ] ) )
-		$captiontag = 'dd';
-	if ( ! isset( $valid_tags[ $icontag ] ) )
-		$icontag = 'dt';
+	
+	// back compat
+	if ( $compatible ) {
+		$valid_tags = wp_kses_allowed_html( 'post' );
+		if ( ! isset( $valid_tags[ $itemtag ] ) )
+			$itemtag = 'dl';
+		if ( ! isset( $valid_tags[ $captiontag ] ) )
+			$captiontag = 'dd';
+		if ( ! isset( $valid_tags[ $icontag ] ) )
+			$icontag = 'dt';
+	}
 
 	$columns = intval( $columns );
 	$itemwidth = $columns > 0 ? floor( 100/$columns ) : 100;
