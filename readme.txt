@@ -15,6 +15,7 @@ Choose from single or multiple taxonomies and search for related posts in single
 
 Plugin features:
 
+* Widget and shortcode
 * Display related posts as links, full posts, excerpts or post thumbnails
 * exclude terms from taxonomies
 * exclude posts from the related posts
@@ -64,7 +65,7 @@ Read the documentation for more information on these attributes and what they do
 For more information on how to use the plugin see this [documentation](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/).
 
 = Can I exclude posts and/or terms with the widget or shortcode =
-Yes. For the widget see [this filter](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/filters/#related_posts_by_taxonomy_widget_args) and for the "Shortcode" see the [shortcode parameters](href="http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/#shortcode-attributes).
+Yes. For the widget see [this filter](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/filters/#related_posts_by_taxonomy_widget_args) and for the shortcode see the [shortcode parameters](href="http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/#shortcode-attributes).
 
 = The widget only lets you choose "all taxonomies" or a single taxonomy. Can I make it use only the taxonomies I want? =
 
