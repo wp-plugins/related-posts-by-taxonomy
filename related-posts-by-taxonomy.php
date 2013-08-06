@@ -2,7 +2,7 @@
 /*
 Plugin Name: Related Posts By Taxonomy
 Version: 0.2
-Plugin URI: http://keesiemeijer.wordpress.com/2013/05/11/related-posts-by-taxonomy-plugin/
+Plugin URI: http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/
 Description: This lightweight WordPress plugin provides a widget and shortcode to display related posts by taxonomies as links, full posts or excerpts. Posts that have the most terms in common will display at the top.
 Author: keesiemijer
 Author URI:
