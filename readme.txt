@@ -11,7 +11,7 @@ This lightweight WordPress plugin provides a widget and shortcode to display rel
 
 == Description ==
 
-Choose from single or multiple taxonomies and search for related posts in single  or multiple post types. Posts that have the **most** terms in common will display at the top (also ordered by date). It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
+Choose from single or multiple taxonomies and search for related posts in single  or multiple post types. Posts that have the **most terms** in common will display at the top (also ordered by date). It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
 
 Plugin features:
 
@@ -19,8 +19,9 @@ Plugin features:
 * Display related posts as links, full posts, excerpts or post thumbnails
 * exclude terms from taxonomies
 * exclude posts from the related posts
-* limit related posts by year or month
-* only display related posts on single posts
+* limit related posts by year(s) or by month(s)
+* only display related posts on single posts 
+* display related posts after the post content
 * use your own templates for display of the related posts
 
 
@@ -79,6 +80,8 @@ Read the "[Adding Related Posts After the Post Content](http://keesiemeijer.word
 == Screenshots ==
 
 1. The Widget
+2. Twenty Twelve screenshot. Post thumbnails (after post content) and the widget
+3. Twenty Thirteen screenshot. Post thumbnails (after post content) and the widget
 == Changelog ==
 
 = 0.2 =

@@ -68,16 +68,17 @@ function km_rpbt_related_posts_by_taxonomy_shortcode( $atts ) {
 	$template = km_rpbt_related_posts_by_taxonomy_template( $format, 'shortcode' );
 
 	if ( $template && !empty( $related_posts ) ) {
-		if ( $title )
-			$before = $before_title . $title . $after_title;
 
 		ob_start();
+
+		if ( $title )
+			echo $before_title . $title . $after_title;
 
 		global $post; // for setup_postdata( $post ) in $template
 		require $template;
 		wp_reset_postdata(); // clean up for global $post;
 
-		return $before . ob_get_clean();
+		return ob_get_clean();
 	}
 
 	return '';
