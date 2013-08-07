@@ -11,7 +11,7 @@ This lightweight WordPress plugin provides a widget and shortcode to display rel
 
 == Description ==
 
-Choose from single or multiple taxonomies and search for related posts in single  or multiple post types. Posts that have the **most terms** in common will display at the top (also ordered by date). It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
+Choose from single or multiple taxonomies and search for related posts in single  or multiple post types. Posts with the **most terms** in common will display at the top (also ordered by date). It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
 
 Plugin features:
 
