@@ -11,7 +11,7 @@
  * @return string Related posts html or empty string
  */
 function km_rpbt_related_posts_by_taxonomy_shortcode( $atts ) {
-	// todo test if 'related_posts_by_taxonomy' can be added to shortcode_atts in 3.5 and 3.4
+
 	$defaults = array(
 
 		/* shortcode attributes */

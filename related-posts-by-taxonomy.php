@@ -3,7 +3,7 @@
 Plugin Name: Related Posts By Taxonomy
 Version: 0.2
 Plugin URI: http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/
-Description: This lightweight WordPress plugin provides a widget and shortcode to display related posts by taxonomies as links, full posts or excerpts. Posts that have the most terms in common will display at the top.
+Description: This lightweight WordPress plugin provides a widget and shortcode to display related posts as links, full posts, excerpts or post thumbnails (aka featured images). Posts that have the most terms in common will display at the top.
 Author: keesiemijer
 Author URI:
 License: GPL v2
@@ -40,7 +40,7 @@ if ( !function_exists( 'related_posts_by_taxonomy_init' ) ) {
 		// functions for display of related post thumbnail gallery
 		require_once plugin_dir_path( __FILE__ ) . 'functions-thumbnail.php';
 
-		// loads the different templates uses for the widget and shortcode
+		// loads the different templates used for the widget and shortcode
 		require_once plugin_dir_path( __FILE__ ) . 'template-loader.php';
 
 		require_once plugin_dir_path( __FILE__ ) . 'widget.php';
