@@ -279,8 +279,8 @@ class Related_Posts_By_Taxonomy extends WP_Widget {
     <p>
 			<label for="<?php echo $this->get_field_id( 'format' ); ?>"><?php _e( 'Format:', 'related-posts-by-taxonomy' ); ?></label>
 			<select name="<?php echo $this->get_field_name( 'format' ); ?>" id="<?php echo $this->get_field_id( 'format' ); ?>" class="widefat">
-			<?php foreach ( array_keys( $this->formats ) as $format ) : ?>
-				<option value="<?php echo $format; ?>"<?php selected( $selected_format, $format ); ?>><?php echo $format; ?></option>
+			<?php foreach ( $this->formats as $key => $format ) : ?>
+				<option value="<?php echo $key; ?>"<?php selected( $selected_format, $key ); ?>><?php echo $format; ?></option>
 			<?php endforeach; ?>
 			</select>
 		</p>
@@ -288,10 +288,10 @@ class Related_Posts_By_Taxonomy extends WP_Widget {
     <p><?php _e( 'This widget needs a post ID for it to display the related posts. The post ID is available on single post pages or inside a loop. If the widget is outside the loop  (like in a sidebar) it gets the first post ID for that page request. (i.e. on a category archive page it will get the post ID from the first post of that category archive page).', 'related-posts-by-taxonomy' ); ?></p>
     <p>
     <input class="checkbox" type="checkbox" <?php checked( $singular_template, 1 ); ?> id="<?php echo $this->get_field_id( 'singular_template' ); ?>" name="<?php echo $this->get_field_name( 'singular_template' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'singular_template' ); ?>"><?php _e( 'Display only on single post pages' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'singular_template' ); ?>"><?php _e( 'Display only on single post pages', 'related-posts-by-taxonomy' ); ?></label>
 		</p>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'post_id' ); ?>"><?php _e( 'Display related posts for post ID (optional):' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'post_id' ); ?>"><?php _e( 'Display related posts for post ID (optional):', 'related-posts-by-taxonomy' ); ?></label>
 		<input id="<?php echo $this->get_field_id( 'post_id' ); ?>" name="<?php echo $this->get_field_name( 'post_id' ); ?>" type="text" value="<?php echo $post_id; ?>" size="5" />
 		</p>
 

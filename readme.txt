@@ -53,7 +53,9 @@ Attributes for the shortcode are:
 Example to show 10 related posts instead of the default 5.
 <pre><code>[related_posts_by_tax posts_per_page="10"]</code></pre>
 
-Read the documentation for more information on these attributes and what they do. 
+Read the documentation for more information about the attributes.
+= Languages =
+Deze plugin is vertaald in het Nederlands. Bij de volgende update zal deze vertaling worden opgenomen in de plugin. Mocht u de vertaling nu al nodig hebben kunt u de bestanden [hier downloaden](http://plugins.svn.wordpress.org/related-posts-by-taxonomy/trunk/lang/). Plaats de Nederlandse .mo en .mo bestanden in de /lang folder van deze plugin.
 
 == Installation ==
 * Unzip the <code>related-posts-by-taxonomy.zip</code> folder.
