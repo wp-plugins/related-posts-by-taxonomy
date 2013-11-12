@@ -2,7 +2,7 @@
 Contributors: keesiemeijer
 Tags: related,related posts,widget,shortcode,taxonomy,taxonomies,post type,post types,category,categories,tags,similar,posts,thumbnails,post thumbnail,featured image
 Requires at least: 3.4
-Tested up to: 3.6
+Tested up to: 3.7
 Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,7 +11,7 @@ This lightweight WordPress plugin provides a widget and shortcode to display rel
 
 == Description ==
 
-Choose from single or multiple taxonomies and search for related posts in single  or multiple post types. Posts with the **most terms** in common will display at the top (also ordered by date). It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
+Display related posts as links, full posts, excerpts or post thumbnails with a widget or shortcode. Choose from single or multiple taxonomies and search for related posts in single  or multiple post types. Posts with the **most terms** in common will display at the top (also ordered by date). It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
 
 Plugin features:
 
@@ -54,8 +54,8 @@ Example to show 10 related posts instead of the default 5.
 <pre><code>[related_posts_by_tax posts_per_page="10"]</code></pre>
 
 Read the documentation for more information about the attributes.
-= Languages =
-Deze plugin is vertaald in het Nederlands. Bij de volgende update zal deze vertaling worden opgenomen in de plugin. Mocht u de vertaling nu al nodig hebben kunt u de bestanden [hier downloaden](http://plugins.svn.wordpress.org/related-posts-by-taxonomy/trunk/lang/). Plaats de Nederlandse .mo en .mo bestanden in de /lang folder van deze plugin.
+= Translations =
+Dutch
 
 == Installation ==
 * Unzip the <code>related-posts-by-taxonomy.zip</code> folder.
@@ -86,6 +86,13 @@ Read the "[Adding Related Posts After the Post Content](http://keesiemeijer.word
 3. Twenty Thirteen screenshot. Post thumbnails (after post content) and the widget
 == Changelog ==
 
+= 0.2.1 =
+* Added image sizes and columns to the widget and shortcode. 
+* Cleaned up the codebase and made it faster.
+* Added Dutch translation.
+* Added a filter for the caption of post thumbnails.
+* Added two filters for a future settings page for this plugin. (this will be a seperate plugin)
+
 = 0.2 =
 * Added new feature to display related post thumbnails.
 * Removed the docs that came with the plugin.
@@ -93,5 +100,5 @@ Read the "[Adding Related Posts After the Post Content](http://keesiemeijer.word
 
 == Upgrade Notice ==
 
-= 0.2 =
-Added new feature to display related post thumbnails.
+= 0.2.1 =
+Added image sizes and image columns to the widget and shortcode. New filter to change the post thumbnail caption text. Cleaned up the codebase and made it faster. Also added the Dutch language translation and tested it up to WordPress 3.7.1.
