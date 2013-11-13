@@ -3,7 +3,7 @@ Contributors: keesiemeijer
 Tags: related,related posts,widget,shortcode,taxonomy,taxonomies,post type,post types,category,categories,tags,similar,posts,thumbnails,post thumbnail,featured image
 Requires at least: 3.4
 Tested up to: 3.7
-Stable tag: 0.2
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
