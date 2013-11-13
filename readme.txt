@@ -11,7 +11,7 @@ This lightweight WordPress plugin provides a widget and shortcode to display rel
 
 == Description ==
 
-Display related posts as links, full posts, excerpts or post thumbnails with a widget or shortcode. Choose from single or multiple taxonomies and search for related posts in single  or multiple post types. Posts with the **most terms** in common will display at the top (also ordered by date). It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
+Display related posts as links, full posts, excerpts or post thumbnails with a widget or shortcode. Posts with the **most terms** in common will display at the top. Choose from single or multiple taxonomies and search for related posts in single or multiple post types. It’s easy to override the look of the widget or shortcode. It’s also possible to get the related posts by using plugin functions in your (child) theme template files.
 
 Plugin features:
 
