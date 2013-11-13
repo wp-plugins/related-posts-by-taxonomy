@@ -46,6 +46,8 @@ Attributes for the shortcode are:
 * exclude_terms
 * exclude_posts
 * format
+* image_size
+* columns
 * limit_posts
 * limit_year
 * limit_month
