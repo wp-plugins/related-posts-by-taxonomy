@@ -254,6 +254,13 @@ class Related_Posts_By_Taxonomy extends WP_Widget {
 	function form( $instance ) {
 
 		$title             = ( isset( $instance['title'] ) ) ? esc_attr( $instance['title'] ) : 'Related Posts';
+		if ( !isset( $instance['taxonomies'] ) ) {
+			// new or updated widget
+			if ( isset( $instance['taxonomy'] ) && $instance['taxonomy'] )
+				$instance['taxonomies'] = $instance['taxonomy'];
+			else
+				$instance['taxonomies'] = $this->defaults->all_tax;
+		}
 		$taxonomy          = ( isset( $instance['taxonomies'] ) ) ?  (string) $instance['taxonomies'] : $this->defaults->all_tax;
 		$format            = ( isset( $instance['format'] ) ) ?  (string) $instance['format'] : 'links';
 		$size              = ( isset( $instance['image_size'] ) ) ?  (string) $instance['image_size'] : 'thumbnail';
@@ -380,10 +387,10 @@ class Related_Posts_By_Taxonomy extends WP_Widget {
 		// outside the loop
 		if ( !in_the_loop() ) {
 
-			if( isset( $wp_query->post->ID ) )			
+			if ( isset( $wp_query->post->ID ) )
 				$post_id =  $wp_query->post->ID;
 
-			if( isset( $wp_query->query_vars['km_rpbt_related_post_id'] ) )
+			if ( isset( $wp_query->query_vars['km_rpbt_related_post_id'] ) )
 				$post_id =  $wp_query->query_vars['km_rpbt_related_post_id'];
 		}
 
