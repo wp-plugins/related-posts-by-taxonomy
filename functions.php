@@ -15,8 +15,9 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 
 	$post_id = absint( $post_id );
 
-	if ( !$post_id )
+	if ( !$post_id ) {
 		return;
+	}
 
 	$defaults = array(
 		'post_types' => 'post', 'posts_per_page' => 5, 'order' => 'DESC',
@@ -30,19 +31,22 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 
 	$taxonomies = ( !empty( $taxonomies ) ) ? $taxonomies : 'category';
 
-	if ( !is_array( $taxonomies ) )
+	if ( !is_array( $taxonomies ) ) {
 		$taxonomies = array_unique( explode( ',', (string) $taxonomies ) );
+	}
 
 	$terms = wp_get_object_terms( $post_id, $taxonomies, array( 'fields' => 'ids' ) );
 
-	if ( is_wp_error( $terms ) || empty( $terms ) )
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
 		return array();
+	}
 
 	$exclude_terms = km_rpbt_related_posts_by_taxonomy_validate_ids( $exclude_terms );
 	$terms = array_diff( $terms , $exclude_terms );
 
-	if ( empty( $terms ) )
+	if ( empty( $terms ) ) {
 		return array();
+	}
 
 	$term_ids_sql = implode( ', ', $terms );
 
@@ -50,8 +54,9 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 	$exclude_posts[] = $post_id;
 	$exclude_posts   = array_unique( $exclude_posts );
 
-	if ( empty( $exclude_posts ) )
+	if ( empty( $exclude_posts ) ) {
 		return array();
+	}
 
 	$post_ids_sql = trim( implode( ', ', $exclude_posts ), ', ' );
 
@@ -64,15 +69,17 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 	$limit_sql = '';
 	if ( -1 !== (int) $limit_posts ) {
 		$limit_posts = absint( $limit_posts );
-		if ( $limit_posts )
+		if ( $limit_posts ) {
 			$limit_sql = ' LIMIT 0,' . $limit_posts;
+		}
 	}
 
 	$date_format = strtolower( (string) $orderby );
-	if ( in_array( $orderby, array( 'post_date', 'post_modified' ) ) )
+	if ( in_array( $orderby, array( 'post_date', 'post_modified' ) ) ) {
 		$date_format = $orderby;
-	else
+	} else {
 		$date_format = 'post_date';
+	}
 
 	$date_sql = '';
 	$limit_year = absint( $limit_year );
@@ -89,14 +96,16 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 
 	$post_types = ( !empty( $post_types ) ) ? $post_types : 'post';
 
-	if ( !is_array( $post_types ) )
+	if ( !is_array( $post_types ) ) {
 		$post_types = array_unique( explode( ',', (string) $post_types ) );
+	}
 
 	$post_type_arr = array();
 	foreach ( (array) $post_types as $type ) {
 		$post_type_obj = get_post_type_object( $type );
-		if ( $post_type_obj )
+		if ( $post_type_obj ) {
 			$post_type_arr[] = $type;
+		}
 	}
 	$post_types = ( !empty( $post_type_arr ) ) ? $post_type_arr : array( 'post' );
 
@@ -117,13 +126,13 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 	default: $select_sql = "$wpdb->posts.*"; break; // all fields
 	}
 
-	// sql for order not RAND
-	$termcount_sql = $post_date_sql = $having_sql = '';
-	if ( $order_sql != 'RAND()' ) {
+	// GROUP BY sql for order
+	$termcount_sql = $post_date_sql = $group_by_sql = '';
+	$group_by_sql = "GROUP BY $wpdb->posts.ID";
+	if ( $order_sql !== 'RAND()' ) {
 		if ( $common_terms ) {
 			$termcount_sql = " , count(distinct tr.term_taxonomy_id) as termcount";
-			$having_sql = "GROUP BY $wpdb->posts.ID
-               HAVING SUM(CASE WHEN tt.term_id IN ($term_ids_sql) THEN 1 ELSE 0 END) > 0";
+			$group_by_sql .= " HAVING SUM(CASE WHEN tt.term_id IN ($term_ids_sql) THEN 1 ELSE 0 END) > 0";
 		}
 		$post_date_sql = " $wpdb->posts.$date_format";
 	}
@@ -136,11 +145,12 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 		$meta_join_sql = ( isset( $meta['join'] ) && $meta['join'] ) ? $meta['join'] : '';
 		$meta_where_sql = ( isset( $meta['where'] ) && $meta['where'] ) ? $meta['where'] : '';
 
-		if ( ( '' == $meta_join_sql ) || ( '' == $meta_join_sql ) )
+		if ( ( '' == $meta_join_sql ) || ( '' == $meta_join_sql ) ) {
 			$meta_join_sql = $meta_where_sql = '';
+		}
 	}
 
-	$query = "SELECT $select_sql$termcount_sql FROM $wpdb->posts INNER JOIN {$wpdb->term_relationships} tr ON ($wpdb->posts.ID = tr.object_id) INNER JOIN {$wpdb->term_taxonomy} tt ON (tr.term_taxonomy_id = tt.term_taxonomy_id)$meta_join_sql $where_sql AND $wpdb->posts.ID NOT IN ($post_ids_sql)$date_sql AND ( tt.term_id IN ($term_ids_sql) )$meta_where_sql $having_sql ORDER BY$post_date_sql $order_sql$limit_sql";
+	$query = "SELECT {$select_sql}{$termcount_sql} FROM $wpdb->posts INNER JOIN {$wpdb->term_relationships} tr ON ($wpdb->posts.ID = tr.object_id) INNER JOIN {$wpdb->term_taxonomy} tt ON (tr.term_taxonomy_id = tt.term_taxonomy_id){$meta_join_sql} {$where_sql} AND $wpdb->posts.ID NOT IN ($post_ids_sql){$date_sql} AND ( tt.term_id IN ($term_ids_sql) ){$meta_where_sql} {$group_by_sql} ORDER BY{$post_date_sql} {$order_sql}{$limit_sql}";
 
 	$last_changed = wp_cache_get( 'last_changed', 'posts' );
 	if ( ! $last_changed ) {
