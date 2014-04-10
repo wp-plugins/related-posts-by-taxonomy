@@ -9,42 +9,43 @@
  * @global string $wp_version
  * @global string $post
  * @param array   $args          Attributes of the shortcode.
- * @param array   $related_posts Array with related post objects.
+ * @param array   $related_posts Array with related post objects that have a post thumbnail.
  * @return string HTML content to display gallery.
  */
 function km_rpbt_related_posts_by_taxonomy_gallery( $args, $related_posts = array() ) {
 
-	$compatible = true;
+	if ( empty( $related_posts ) ) {
+		return '';
+	}
 
-	global $wp_version;
-	if ( version_compare( $wp_version, "3.5", "<" ) )
-		$compatible = false;
-
-	// back compat
-	if ( $compatible )
-		$post = get_post();
-	else
-		global $post;
+	$post = get_post();
 
 	static $instance = 0;
 	$instance++;
 
-	if ( empty( $related_posts ) )
-		return '';
+	// WordPress >= 3.9 supports html5 tags for the gallery shortcode
+	$html5 = current_theme_supports( 'html5', 'gallery' );
 
 	$defaults = array(
 		'id'         => $post ? $post->ID : 0,
-		'itemtag'    => 'dl',
-		'icontag'    => 'dt',
-		'captiontag' => 'dd',
+		'itemtag'    => $html5 ? 'figure'     : 'dl',
+		'icontag'    => $html5 ? 'div'        : 'dt',
+		'captiontag' => $html5 ? 'figcaption' : 'dd',
 		'columns'    => 3,
 		'size'       => 'thumbnail',
+		'caption'    => 'post_title', // 'post_title', 'post_excerpt', 'attachment_caption', attachment_alt, or a custom string
 	);
 
-	// attributes can be filtered by WordPress 3.6 and up
+	/* Can be filtered in WordPress > 3.5 (hook: shortcode_atts_gallery) */
 	$args = shortcode_atts( $defaults, $args, 'gallery' );
 
-	// specific related post gallery filter for all versions
+	/**
+	 * Filter the function arguments.
+	 *
+	 * @since 0.2.1
+	 *
+	 * @param array   $args Function arguments.
+	 */
 	$filtered_args = apply_filters( 'related_posts_by_taxonomy_gallery', $args );
 
 	$args = array_merge( $defaults, (array) $filtered_args );
@@ -54,12 +55,28 @@ function km_rpbt_related_posts_by_taxonomy_gallery( $args, $related_posts = arra
 
 	if ( is_feed() ) {
 		$output = "\n";
-		foreach ( $related_posts as $related ) {
-			$thumb_id = get_post_thumbnail_id(  $related->ID  );
-			$url = get_permalink(  $related->ID );
-			$post_title =  esc_attr(  $related->post_title );
-			$link_text = wp_get_attachment_image( $thumb_id, $size );
-			$output .=  "<a href='$url' title='$post_title'>$link_text</a>\n";
+		foreach ( (array) $related_posts as $related ) {
+
+			$thumbnail_id = get_post_thumbnail_id(  $related->ID  );
+			$post_thumbnail = wp_get_attachment_image( $thumbnail_id, $size );
+
+			/**
+			 * Filter the related post gallery image in the feed.
+			 *
+			 * @since 0.3
+			 *
+			 * @param string  $post_thumbnail Html image tag or empty string.
+			 * @param object  $related        Related post object
+			 * @param array   $args           Function arguments.
+			 */
+			$gallery_image = apply_filters( 'related_posts_by_taxonomy_rss_post_thumbnail', $post_thumbnail, $related, $args );
+
+			if ( $gallery_image ) {
+				$url = get_permalink(  $related->ID );
+				$post_title =  esc_attr(  $related->post_title );
+
+				$output .=  "<a href='$url' title='$post_title'>$gallery_image</a>\n";
+			}
 		}
 		return $output;
 	}
@@ -67,17 +84,13 @@ function km_rpbt_related_posts_by_taxonomy_gallery( $args, $related_posts = arra
 	$itemtag = tag_escape( $itemtag );
 	$captiontag = tag_escape( $captiontag );
 	$icontag = tag_escape( $icontag );
-
-	// back compat
-	if ( $compatible ) {
-		$valid_tags = wp_kses_allowed_html( 'post' );
-		if ( ! isset( $valid_tags[ $itemtag ] ) )
-			$itemtag = 'dl';
-		if ( ! isset( $valid_tags[ $captiontag ] ) )
-			$captiontag = 'dd';
-		if ( ! isset( $valid_tags[ $icontag ] ) )
-			$icontag = 'dt';
-	}
+	$valid_tags = wp_kses_allowed_html( 'post' );
+	if ( ! isset( $valid_tags[ $itemtag ] ) )
+		$itemtag = 'dl';
+	if ( ! isset( $valid_tags[ $captiontag ] ) )
+		$captiontag = 'dd';
+	if ( ! isset( $valid_tags[ $icontag ] ) )
+		$icontag = 'dt';
 
 	$columns = intval( $columns );
 	$itemwidth = $columns > 0 ? floor( 100/$columns ) : 100;
@@ -86,7 +99,19 @@ function km_rpbt_related_posts_by_taxonomy_gallery( $args, $related_posts = arra
 	$selector = "gallery-{$instance}";
 
 	$gallery_style = $gallery_div = '';
-	if ( apply_filters( 'use_default_gallery_style', true ) )
+
+	/**
+	 * Filter whether to print default gallery styles.
+	 * 
+	 * Note: This is a WordPress core filter hook
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param bool    $print Whether to print default gallery styles.
+	 *                       Defaults to false if the theme supports HTML5 galleries.
+	 *                       Otherwise, defaults to true.
+	 */
+	if ( apply_filters( 'use_default_gallery_style', ! $html5 ) ) {
 		$gallery_style = "
 		<style type='text/css'>
 			#{$selector} {
@@ -105,52 +130,105 @@ function km_rpbt_related_posts_by_taxonomy_gallery( $args, $related_posts = arra
 				margin-left: 0;
 			}
 			/* see gallery_shortcode() in wp-includes/media.php */
-		</style>";
+		</style>\n\t\t";
+	}
+
 	$size_class = sanitize_html_class( $size );
 	$gallery_div = "<div id='$selector' class='gallery related-gallery related-galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}'>";
-	$output = apply_filters( 'gallery_style', $gallery_style . "\n\t\t" . $gallery_div );
+	$output = apply_filters( 'gallery_style', $gallery_style . $gallery_div );
 
 	$i = 0;
+	$item_output = '';
 
-	foreach ( $related_posts as $related ) {
-		$thumb_id = get_post_thumbnail_id(  $related->ID  );
-		$image_output = '';
+	foreach ( (array) $related_posts as $related ) {
 
-		if ( $id ) {
-			$url = get_permalink(  $related->ID );
-			$post_title =  esc_attr(  $related->post_title );
-			$link_text = wp_get_attachment_image( $thumb_id, $size );
+		$image_output = $_caption = '';
 
-			$image_output =  "<a href='$url' title='$post_title'>$link_text</a>";
-			$image_meta  = wp_get_attachment_metadata( $thumb_id );
+		$thumbnail_id = get_post_thumbnail_id(  $related->ID  );
+		$post_thumbnail = wp_get_attachment_image( $thumbnail_id, $size );
 
-			$orientation = '';
-			if ( isset( $image_meta['height'], $image_meta['width'] ) )
-				$orientation = ( $image_meta['height'] > $image_meta['width'] ) ? 'portrait' : 'landscape';
+		/**
+		 * Filter the gallery image.
+		 *
+		 * @since 0.3
+		 *
+		 * @param string  $post_thumbnail Html image tag or empty string.
+		 * @param object  $related        Related post object
+		 * @param array   $args           Function arguments.
+		 */
+		$gallery_image = apply_filters( 'related_posts_by_taxonomy_post_thumbnail', $post_thumbnail, $related, $args );
 
-			$output .= "<{$itemtag} class='gallery-item'>";
-			$output .= "
+		if ( !$gallery_image ) {
+			continue;
+		}
+
+		$url = get_permalink(  $related->ID );
+		$post_title_attr =  esc_attr( $related->post_title );
+
+		$image_output =  "<a href='$url' title='$post_title_attr'>$gallery_image</a>";
+
+		$image_meta  = wp_get_attachment_metadata( $thumbnail_id );
+
+		$orientation = '';
+		if ( isset( $image_meta['height'], $image_meta['width'] ) ) {
+			$orientation = ( $image_meta['height'] > $image_meta['width'] ) ? 'portrait' : 'landscape';
+		}
+
+		$item_output .= "<{$itemtag} class='gallery-item'>";
+		$item_output .= "
 			<{$icontag} class='gallery-icon {$orientation}'>
 				$image_output
 			</{$icontag}>";
-			if ( $captiontag && trim(  $related->post_title ) ) {
 
-				$caption = apply_filters( 'related_posts_by_taxonomy_caption', wptexturize( $related->post_title ), $related );
-				if ( $caption ) {
-					$output .= "
+		if ( 'post_title' === $caption ) {
+			$_caption = $related->post_title;
+		} elseif ( 'post_excerpt' === $caption ) {
+			setup_postdata( $related );
+			$_caption = apply_filters( 'the_excerpt', get_the_excerpt() );
+			wp_reset_postdata();
+		} elseif ( 'attachment_caption' === $caption ) {
+			$attachment = get_post( $thumbnail_id );
+			$_caption = ( isset( $attachment->post_excerpt ) ) ? $attachment->post_excerpt : '';
+		} elseif ( 'attachment_alt' === $caption ) {
+			$_caption = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
+		}
+
+		/**
+		 * Filter the related post thumbnail caption.
+		 *
+		 * @since 0.3
+		 *
+		 * @param string  $caption Options 'post_title', 'attachment_caption', attachment_alt, or a custom string. Default: post_title.
+		 * @param object  $related Related post object.
+		 * @param array   $args    Function arguments.
+		 */
+		$_caption = apply_filters( 'related_posts_by_taxonomy_caption',  wptexturize( $_caption ), $related, $args );
+
+		if ( $captiontag && !empty( $_caption ) ) {
+			$item_output .= "
 				<{$captiontag} class='wp-caption-text gallery-caption'>
-				" . $caption . "
+				" . $_caption . "
 				</{$captiontag}>";
-				}
-			}
-			$output .= "</{$itemtag}>";
-			if ( $columns > 0 && ++$i % $columns == 0 )
-				$output .= '<br style="clear: both" />';
+		}
+		$item_output .= "</{$itemtag}>";
+
+		if ( ! $html5 && $columns > 0 && ++$i % $columns == 0 ) {
+			$item_output .= '<br style="clear: both" />';
 		}
 	}
 
+	if ( !$item_output ) {
+		return '';
+	}
+
+	$output .= $item_output;
+
+	if ( ! $html5 && $columns > 0 && $i % $columns !== 0 ) {
+		$output .= "
+			<br style='clear: both' />";
+	}
+
 	$output .= "
-			<br style='clear: both;' />
 		</div>\n";
 
 	return $output;
