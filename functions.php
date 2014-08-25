@@ -242,7 +242,7 @@ function km_rpbt_related_posts_by_taxonomy( $post_id = 0, $taxonomies = 'categor
 	 *
 	 * @param string  $limits The LIMIT clause of the query.
 	 */
-	$limit_sql = apply_filters_ref_array( 'related_posts_by_taxonomy_post_limits', array( $limit_sql, $post_id, $taxonomies, $args ) );
+	$limit_sql = apply_filters_ref_array( 'related_posts_by_taxonomy_posts_limits', array( $limit_sql, $post_id, $taxonomies, $args ) );
 
 	/**
 	 * Filter all query clauses at once, for convenience.
