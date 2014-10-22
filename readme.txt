@@ -28,7 +28,7 @@ Plugin features:
 
 For more information about the plugin see the [documentation](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/).
 
-Follow this plugin on [GitHub](https://github.com/keesiemeijer/related-posts-by-taxonomy)
+Follow this plugin on [GitHub](https://github.com/keesiemeijer/related-posts-by-taxonomy).
 
 To have the related posts automatically display after the post content without using the shortcode or widget see the [FAQ](http://wordpress.org/extend/plugins/related-posts-by-taxonomy/faq/). 
 
