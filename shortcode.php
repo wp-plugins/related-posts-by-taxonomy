@@ -12,6 +12,15 @@
  */
 function km_rpbt_related_posts_by_taxonomy_shortcode( $rpbt_args ) {
 
+	/* for filter recursion (infinite loop) */
+	static $recursing = false;
+
+	if ( ! $recursing ) {
+		$recursing = true;
+	} else {
+		return '';
+	}
+
 	$plugin_defaults = Related_Posts_By_Taxonomy_Defaults::get_instance();
 
 	$defaults = array(
@@ -26,7 +35,7 @@ function km_rpbt_related_posts_by_taxonomy_shortcode( $rpbt_args ) {
 		'limit_posts' => -1, 'limit_year' => '',
 		'limit_month' => '', 'orderby' => 'post_date',
 		'exclude_terms' => '', 'include_terms' => '',  'exclude_posts' => '',
-		'relation' => 'AND', // 'post_thumbnail' => '', 'fields' => 'all'
+		'related' => '', // 'post_thumbnail' => '', 'fields' => 'all'
 	);
 
 	/**
@@ -79,6 +88,13 @@ function km_rpbt_related_posts_by_taxonomy_shortcode( $rpbt_args ) {
 	$image_size = $rpbt_args['image_size'];
 	$columns = absint( $rpbt_args['columns'] );
 
+	// convert 'related' string to boolean.
+	$rpbt_args['related'] = ( '' !== trim( $rpbt_args['related'] ) ) ? $rpbt_args['related'] : true;
+	$rpbt_args['related'] = filter_var( $rpbt_args['related'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+
+	// non boolean used, default to true
+	$rpbt_args['related'] = ( $rpbt_args['related'] === NULL ) ? true : $rpbt_args['related'];
+
 	$function_args = $rpbt_args;
 
 	/* restricted arguments */
@@ -100,27 +116,31 @@ function km_rpbt_related_posts_by_taxonomy_shortcode( $rpbt_args ) {
 	 */
 	$hide_empty = (bool) apply_filters( 'related_posts_by_taxonomy_shortcode_hide_empty', true );
 
+	$rpbt_shortcode = '';
+
 	if ( !$hide_empty || !empty( $related_posts ) ) {
 
 		/* get the template depending on the format  */
 		$template = km_rpbt_related_posts_by_taxonomy_template( $rpbt_args['format'], $rpbt_args['type'] );
 
-		if ( !$template ) {
-			return '';
-		}
+		$title = $rpbt_args['before_title'] . $rpbt_args['title'] . $rpbt_args['after_title'];
 
 		ob_start();
 
-		if ( $rpbt_args['title'] ) {
-			echo $rpbt_args['before_title'] . $rpbt_args['title'] . $rpbt_args['after_title'];
+		global $post; // used for setup_postdata() in templates
+
+		if ( $template ) {
+			echo ( $rpbt_args['title'] ) ? $title : '';
+			unset( $title );
+			require $template;
 		}
 
-		global $post; // used for setup_postdata() in templates
-		require $template;
 		wp_reset_postdata(); // clean up global $post variable;
 
-		return ob_get_clean();
+		$rpbt_shortcode = ob_get_clean();
 	}
 
-	return '';
+	$recursing = false;
+
+	return $rpbt_shortcode;
 } // end km_rpbt_related_posts_by_taxonomy_shortcode()
