@@ -58,13 +58,13 @@ Attributes for the shortcode are:
 * limit_month
 * related
 
-
 Example to show 10 related posts instead of the default 5.
 <pre><code>[related_posts_by_tax posts_per_page="10"]</code></pre>
 
 See the [documentation](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/) for more information about the attributes and their defaults.
 = Translations =
 Dutch
+French (by [Annie Stasse](http://www.artisanathai.fr))
 
 == Installation ==
 * Unzip the <code>related-posts-by-taxonomy.zip</code> folder.
