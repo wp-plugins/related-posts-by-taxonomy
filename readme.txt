@@ -92,8 +92,9 @@ Read the "[Adding Related Posts After the Post Content](http://keesiemeijer.word
 == Screenshots ==
 
 1. The Widget
-2. Twenty Twelve screenshot. Post thumbnails (after post content) and the widget
-3. Twenty Thirteen screenshot. Post thumbnails (after post content) and the widget
+2. Twenty Fifteen screenshot. Related posts in the sidebar
+3. Twenty Twelve screenshot. Post thumbnails (after post content) and the widget
+4. Twenty Thirteen screenshot. Post thumbnails (after post content) and the widget
 
 == Changelog ==
 = 1.0 =
