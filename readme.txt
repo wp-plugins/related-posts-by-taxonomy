@@ -7,11 +7,11 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This lightweight plugin lets you easily display related posts in your sidebar or after post content. Display Thumbnails, links, excerpts or full posts
+This lightweight plugin lets you easily display related posts in a sidebar or after post content as thumbnails, links, excerpts or full posts.
 
 == Description ==
 
-Quickly increase your readers' engagement with your posts by adding related posts in the sidebar or after your post content. Use a widget or shortcode to display the related posts as thumbnails, links, excerpts or as full posts. Posts with the **most terms in common** will display at the top. Use single or multiple **taxonomies** and **post types** to let this plugin find the related posts. Include or exclude terms. Change the look and feel by using your own templates in your (child) theme.
+Quickly increase your readers' engagement by adding related posts in the sidebar or after your post content with a widget or shortcode. Posts with the **most terms in common** will display at the top. Use single or multiple **taxonomies** and **post types** to let this plugin find the related posts. Include or exclude terms. Change the look and feel by using your own templates in your (child) theme.
 
 [plugin documentation](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/)
 
@@ -30,7 +30,7 @@ Plugin features:
 
 Follow this plugin on [GitHub](https://github.com/keesiemeijer/related-posts-by-taxonomy).
 
-To have the related posts automatically display after the post content without using the shortcode or widget see the [FAQ](http://wordpress.org/extend/plugins/related-posts-by-taxonomy/faq/). 
+See the [FAQ](http://wordpress.org/extend/plugins/related-posts-by-taxonomy/faq/) to have related posts automatically display after the post content without using the shortcode or widget. 
 
 Default usage for the shortcode is:
 <pre><code>[related_posts_by_tax]</code></pre>
