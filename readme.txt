@@ -2,7 +2,7 @@
 Contributors: keesiemeijer
 Tags: posts,related,related posts,related thumbnails,similar,similar posts,widget,shortcode,taxonomy,taxonomies,post type,post types,category,categories,tag,tags,post thumbnail,post thumbnails,thumbnails,featured,featured image,image,images
 Requires at least: 3.7
-Tested up to: 4.1.1
+Tested up to: 4.2
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -17,16 +17,19 @@ Quickly increase your readers' engagement by adding related posts in the sidebar
 
 Plugin features:
 
+* **Efficient cached query** to get the related posts.
+* **Small Footprint**.
 * Widget and Shortcode.
-* Display related posts as post thumbnails, links, excerpts or full posts.
-* Search for related posts in single or multiple taxonomies and post types.
-* Exclude or include terms.
-* Exclude posts.
-* Limit the search of related posts by date or number.
-* Automatically display related posts after the post content.
-* Use your own HTML templates for display of the related posts.
-* Make use of plugin functions to display related posts in your theme templates.
-* Use Filters to change the default behavior of the plugin.
+* Display related posts as **post thumbnails**, links, excerpts or full posts.
+* Automatic display of related posts after the post content.
+* Search for related posts in **single** or **multiple** taxonomies and post types.
+* **Exclude** or **include** terms and posts.
+* **Limit the search** of related posts by date or number.
+* Use your own **HTML templates** for display of the related posts.
+* Use **plugin functions** in your theme templates to display related posts yourself.
+* Use Filters to **change the default behavior** of the plugin.
+* Extensive **plugin documentation**.
+* Follows WordPress coding standards and plugin best practices.
 
 Follow this plugin on [GitHub](https://github.com/keesiemeijer/related-posts-by-taxonomy).
 
@@ -79,17 +82,21 @@ See the [documentation](http://keesiemeijer.wordpress.com/related-posts-by-taxon
 For more information about the plugin see the [plugin documentation](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/).  
 To customize this plugin see the [plugin recipes page](https://keesiemeijer.wordpress.com/related-posts-by-taxonomy/recipes/).
 
+= Can I change the layout for the related posts? =
+Yes. Review [this section](https://keesiemeijer.wordpress.com/related-posts-by-taxonomy/recipes/#styling) of the documuntation to style the related posts yourself.
+
+= How can I automatically add related posts after the post content? =
+Review [Adding Related Posts After the Post Content](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/#after-content).
 
 = Can I include or exclude posts or terms with the widget or shortcode =
 Yes. For the widget see [this filter](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/filters/#related_posts_by_taxonomy_widget_args) and for the shortcode see the attributes [exclude-terms](https://keesiemeijer.wordpress.com/related-posts-by-taxonomy/#exclude-terms), [include_terms](https://keesiemeijer.wordpress.com/related-posts-by-taxonomy/#include-terms) and [exclude_posts](https://keesiemeijer.wordpress.com/related-posts-by-taxonomy/#exclude-posts).
 
+= Can I set my own defaults for the shortcode? =
+Yes. Review [Setting your own defaults for the shortcode](https://keesiemeijer.wordpress.com/related-posts-by-taxonomy/recipes/#shortcode_defaults) 
+
 = The widget only lets you choose "all taxonomies" or a single taxonomy. Can I make it use only the taxonomies I want? =
 
 Yes. See [this filter](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/filters/#related_posts_by_taxonomy_widget_args) on how to do that.
-
-= How can I automatically add related posts after the post content? =
-
-Review [Adding Related Posts After the Post Content](http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/#after-content).
 
 == Screenshots ==
 
